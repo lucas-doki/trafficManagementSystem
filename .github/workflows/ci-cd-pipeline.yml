@@ -39,8 +39,8 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: yourdockerhubusername/trafficmanagementsystem:latest
+        tags: LucasDoki/trafficmanagementsystem:latest
 
     - name: Run tests
       run: |
-        docker run --network host yourdockerhubusername/trafficmanagementsystem:latest dotnet test
+        docker run --network host LucasDoki/trafficmanagementsystem:latest dotnet test

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  traffic-management-system:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traffic-management-system
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=TrafficDb;User=sa;Password=YourPassword123;
+    depends_on:
+      - db
+    networks:
+      - traffic-network
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: traffic-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourPassword123!
+    volumes:
+      - db_data:/var/opt/mssql
+    networks:
+      - traffic-network
+
+networks:
+  traffic-network:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local

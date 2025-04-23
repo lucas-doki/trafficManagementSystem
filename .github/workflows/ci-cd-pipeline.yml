@@ -16,12 +16,12 @@ jobs:
       db:
         image: mcr.microsoft.com/mssql/server:2022-latest
         env:
-          SA_PASSWORD: 'YourStrong!Passw0rd'
+          SA_PASSWORD: '0000'
           ACCEPT_EULA: 'Y'
         ports:
           - 1433:1433
         options: >-
-          --health-cmd "sqlcmd -S localhost -U SA -P YourStrong!Passw0rd -Q 'SELECT 1'"
+          --health-cmd "sqlcmd -S localhost -U SA -P 0000 -Q 'SELECT 1'"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 3
@@ -45,11 +45,11 @@ jobs:
       run: |
         docker run --rm \
           --network host \
-          -e "ConnectionStrings__DefaultConnection=Server=localhost;Database=TrafficDb;User=sa;Password=YourStrong!Passw0rd;" \
+          -e "ConnectionStrings__DefaultConnection=Server=localhost;Database=TrafficDb;User=default;Password=0000;" \
           your-docker-image-name \
           dotnet ef database update
 
     - name: Run tests
       run: dotnet test --no-build --verbosity normal
       env:
-        ConnectionStrings__DefaultConnection: "Server=localhost;Database=TrafficDb;User=sa;Password=YourStrong!Passw0rd;"
+        ConnectionStrings__DefaultConnection: "Server=localhost;Database=TEST;User=default;Password=0000;"

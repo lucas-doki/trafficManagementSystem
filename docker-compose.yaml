@@ -10,18 +10,18 @@ services:
       - "5000:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Database=TrafficDb;User=sa;Password=YourPassword123;
+      - ConnectionStrings__DefaultConnection=Server=db;Database=TEST;User=default;Password=0000;
     depends_on:
       - db
     networks:
       - traffic-network
 
   db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: traffic-db
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourPassword123!
+      - SA_PASSWORD=0000
     volumes:
       - db_data:/var/opt/mssql
     networks:
